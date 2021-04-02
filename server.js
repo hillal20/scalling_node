@@ -4,6 +4,8 @@ const server = express()
 server.use(bodyParser.json())
 const port = process.argv[2] || 4000
 
+
+
 const options = [
     "option-1",
     "option-2",
@@ -14,7 +16,8 @@ const options = [
 
 const radomIndex = Math.floor(Math.random() * options.length)
 server.get('/api', (req, res)=> {
-     console.log(" === requesting =====")
+     console.log(` === requesting process: ${process.pid} =====`)
+  
     res.json({
          data: options[radomIndex],
         port:port,
@@ -23,10 +26,17 @@ server.get('/api', (req, res)=> {
     })
 })
 
+server.get('/kill', (req, res)=> {
+    console.log(` === requesting process: ${process.pid} =====`)
+    process.exit()
+   
+})
+
+
 
 
 
 
 server.listen(port, ()=>{
-    console.log(`== api is working on port ${port} ==`)
+    console.log(`== api is working on port ${port}, process: ${process.pid} ==`)
 })
